@@ -21,8 +21,12 @@ function assertName(operationOnPromise, done){
   });
 
 }
-  it('instance type using set and save', (done) => {
-    joe.set('name', 'Alex');
-    assertName(joe.save(), done);
-  })
+it('instance type using set and save', (done) => {
+  joe.set('name', 'Alex');
+  assertName(joe.save(), done);
+})
+
+it('A model instance can update', (done) => {
+  assertName(joe.update({name: 'Alex'}), done);
+});
 })
