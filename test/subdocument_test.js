@@ -26,6 +26,7 @@ describe('Subdocuments', () => {
     .then(() => User.findOne({name: 'Joe'}))
     .then((user) => {
       user.posts.push({title: 'New Post'});
+      user.save();
     })
   })
 
