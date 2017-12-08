@@ -56,4 +56,25 @@ describe('Deleting a user', () => {
         done();
       })
   })
+
+  it('Can remove an existing subdocuments', (done) => {
+    const joe = new User({
+      name: 'Joe',
+      posts: [{title: 'New Title'}]
+    })
+    joe.save()
+    .then(() => {
+      User.findOne({name: 'Joe'});
+    })
+    .then((user) => {
+      const post = user.post[0];
+      post.remove();
+      return user.save();
+    })
+    .then(() => User.findOne({ name: 'Joe' }))
+    .then((user) => {
+      assert(user.posts.length === 0);
+      done();
+    })
+  })
 })
